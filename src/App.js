@@ -1,16 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-//import './App.html';
-import React, { Component, useState } from "react";
-import ReactDOM from "react-dom";
-import Looper from './Looper.js';
+import "./App.css";
+import React, { Fragment } from "react";
+import Looper from "./Looper.js";
 
 function App() {
   return (
-    ReactDOM.render(
-      <Looper />,
-      document.getElementById('root')
-    )
+    <Fragment>
+      <Looper />
+    </Fragment>
   );
 }
 

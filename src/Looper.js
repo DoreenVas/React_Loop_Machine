@@ -1,9 +1,7 @@
 import React, { Component, useState } from "react";
-import ReactDOM from "react-dom";
 import Board from './Board.js';
 
-class Looper extends React.Component {
-    render() {
+function Looper () {
       return (
         <div className="looper">
           <div className="looper-board">
@@ -15,6 +13,6 @@ class Looper extends React.Component {
           </div>
         </div>
       );
-    }
+    
   }
   export default Looper;
