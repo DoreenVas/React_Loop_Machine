@@ -8,6 +8,7 @@ import mp from './MazePolitics_120_Perc.mp3';
 import groove2 from './PAS3GROOVE1.03B.mp3';
 import silent_star from './SilentStar_120_Em_OrganSynth.mp3';
 
+//audio files array
 export const audios = [ 
     new Audio(future_funk),
     new Audio(stutter_breakbeats),
