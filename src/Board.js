@@ -18,8 +18,8 @@ class Board extends React.Component {
     this.state = {
       squares: Array(9).fill(false), //true of false in each square depending whether clicked
       isPlayClicked: false, //play button clicked or not
+      waitArray: Array(9).fill(false), // array of all audio waiting for the next loop to join
     };
-
     this.audios = [
       new Audio(future_funk),
       new Audio(stutter_breakbeats),
@@ -36,24 +36,49 @@ class Board extends React.Component {
   handleClick(i) {
     const audio = this.audios[i];
     //making sure the audio is in a loop
-    audio.addEventListener("ended", () => audio.play(), false);
-
+    audio.addEventListener("ended", () => this.handleLoop(audio), false);
     const squares = this.state.squares.slice();
+    const waitArray = this.state.waitArray.slice();
+    //play-clicked and button-on
     if (this.state.squares[i] == false && this.state.isPlayClicked == true) {
-      //play is clicked and button is on
       squares[i] = true;
-      audio.play();
+      waitArray[i] = true;
+      //audio.play();
+      //play-not clicked and button-on
     } else if (this.state.squares[i] == false) {
-      //button is on for next "play"
       squares[i] = true;
+      //play-not clicked and button-off
     } else if (this.state.isPlayClicked == false) {
       squares[i] = false;
+      //play-clicked and button-off
     } else {
       squares[i] = false;
-      audio.pause();
+      //the audio was waiting to be played when the button turned to off
+      if (this.state.waitArray[i] == true) {
+        waitArray[i] = false;
+      } else {
+        // the audio was playing
+        audio.pause();
+      }
     }
     this.setState({
       squares: squares,
+      waitArray: waitArray,
+    });
+  }
+
+  handleLoop(audio) {
+    audio.play();
+    const waitArray = this.state.waitArray.slice();
+    //play audios on waitArray
+    for (let i = 0; i < this.state.waitArray.length; i++) {
+      if (this.state.waitArray[i] == true) {
+        this.audios[i].play();
+        waitArray[i] = false;
+      }
+    }
+    this.setState({
+      waitArray: waitArray,
     });
   }
 
@@ -68,8 +93,9 @@ class Board extends React.Component {
   }
 
   handlePlayClick() {
+    const waitArray = this.state.waitArray.slice();
+    //the user clicked play
     if (this.state.isPlayClicked == false) {
-      //the user clicked play
       for (let i = 0; i < this.state.squares.length; i++) {
         if (this.state.squares[i] == true) {
           this.audios[i].play();
@@ -81,10 +107,12 @@ class Board extends React.Component {
         if (this.state.squares[i] == true) {
           this.audios[i].pause();
         }
+        waitArray[i] = false;
       }
     }
     this.setState({
       isPlayClicked: !this.state.isPlayClicked,
+      waitArray: waitArray,
     });
   }
 
