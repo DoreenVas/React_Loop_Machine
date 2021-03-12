@@ -41,8 +41,19 @@ class Board extends React.Component {
     const waitArray = this.state.waitArray.slice();
     //play-clicked and button-on
     if (this.state.squares[i] == false && this.state.isPlayClicked == true) {
+      var playing = 0;
+      for (let j = 0; j < this.state.squares.length; j++) {
+        if (this.state.squares[j] == true) {
+          playing++;
+        }
+      }
+      //if no audio is playing no need for waiting to sync, play now
+      if (playing == 0) {
+        audio.play();
+      } else {
+        waitArray[i] = true;
+      }
       squares[i] = true;
-      waitArray[i] = true;
       //audio.play();
       //play-not clicked and button-on
     } else if (this.state.squares[i] == false) {
