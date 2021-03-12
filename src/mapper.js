@@ -8,19 +8,6 @@ import mp from "./audio-files/MazePolitics_120_Perc.mp3";
 import groove2 from "./audio-files/PAS3GROOVE1.03B.mp3";
 import silent_star from "./audio-files/SilentStar_120_Em_OrganSynth.mp3";
 
-//audio files array
-// export const audios = [
-//     new Audio(future_funk),
-//     new Audio(stutter_breakbeats),
-//     new Audio(heavy_funk),
-//     new Audio(country),
-//     new Audio(stompy_slosh),
-//     new Audio(groove),
-//     new Audio(mp),
-//     new Audio(groove2),
-//     new Audio(silent_star),
-//   ];
-
 export {
   future_funk,
   stutter_breakbeats,
